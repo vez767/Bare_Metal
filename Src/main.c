@@ -57,14 +57,35 @@ int main(void)
 	   uint32_t *pGPIOA_ODR = (uint32_t *)0x40020014;
 	   *pGPIOA_ODR |= (0 << 5);
 	//
-	uint32_t *pGPIOC_IDR = (uint32_t *)0x40020810;
 
+	uint32_t *pGPIOC_IDR = (uint32_t *)0x40020810; // POINTER TO BUTTON ADDRESS
+
+	/*
 	while(1){
 		if(!(*pGPIOC_IDR & (1 << 13)))
 		{
 			*pGPIOA_ODR |= (1 << 5);
 		}
 		else *pGPIOA_ODR &= ~(1 << 5);
+
+	}*/
+
+	/* CHALLENGE 3; TOGGLE COMMAND*/
+	uint8_t last_button_state = 1;
+
+	while(1)
+	{
+		uint8_t current_button_state = (*pGPIOC_IDR & (1 << 13))? 1:0;
+
+		if( last_button_state == 1 && current_button_state == 0){
+
+			*pGPIOA_ODR ^= (1 << 5);
+
+			for(volatile uint32_t i = 0; i < 50000; i++);
+		}
+
+
+		last_button_state = current_button_state;
 
 	}
 }
