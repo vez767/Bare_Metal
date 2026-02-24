@@ -18,6 +18,30 @@
 
 #include <stdint.h>
 
+uint32_t *pGPIOA_ODR = (uint32_t *)0x40020014;
+
+int mode_state(int m){
+
+	if(m == 0){
+		*pGPIOA_ODR &= ~(1 << 5);
+	}
+	else if(m == 1){
+
+		*pGPIOA_ODR ^= (1 << 5);
+		for(volatile uint32_t i = 0; i < 400000; i++);
+	}
+	else if(m == 2){
+
+		*pGPIOA_ODR ^= (1 << 5);
+		for(volatile uint32_t i = 0; i < 200000; i++);
+	}
+	else if(m == 3){
+
+			*pGPIOA_ODR ^= (1 << 5);
+			for(volatile uint32_t i = 0; i < 100000; i++);
+		}
+}
+
 
 int main(void)
 {
@@ -54,7 +78,7 @@ int main(void)
 	   *pGPIOA_MODER &= ~(3 << 10);
 	   *pGPIOA_MODER |= (1 << 10);
 
-	   uint32_t *pGPIOA_ODR = (uint32_t *)0x40020014;
+
 	   *pGPIOA_ODR |= (0 << 5);
 	//
 
@@ -70,7 +94,9 @@ int main(void)
 
 	}*/
 
-	/* CHALLENGE 3; TOGGLE COMMAND*/
+	/*
+	 * CHALLENGE 3: TOGGLE COMMAND
+	 *
 	uint8_t last_button_state = 1;
 
 	while(1)
@@ -87,5 +113,28 @@ int main(void)
 
 		last_button_state = current_button_state;
 
+	}*/
+
+	/* CHALLENGE 4: LED TOGGLE SPEED CONTROLLER*/
+
+	uint8_t last_button_state = 1;
+	uint8_t mode = 0;
+
+	while(1)
+		{
+	uint8_t current_button_state = (*pGPIOC_IDR & (1 << 13))? 1:0;
+
+	if( last_button_state == 1 && current_button_state == 0){
+
+		 mode = (mode + 1) % 4;
+
+		for(volatile uint32_t i = 0; i < 40000; i++);
 	}
+
+	mode_state(mode);
+
+	last_button_state = current_button_state;
+		}
+
+
 }
