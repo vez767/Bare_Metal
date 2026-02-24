@@ -21,6 +21,9 @@
 
 int main(void)
 {
+	/*
+	 * CHALLENGE 1: BLINK LED
+	 *
    uint32_t *pRCC_AHBENR = (uint32_t *)0x40023830;
    *pRCC_AHBENR |= (1<<0);
 
@@ -38,5 +41,30 @@ int main(void)
 	   for(uint32_t i = 0; i<500000; i++){}
 
    }
+	*/
 
+
+
+	/*CHALLENGE 2: REGISTER INPUT POLL*/
+	uint32_t *pRCC_AHB1ENR = (uint32_t *)0x40023830;
+	*pRCC_AHB1ENR |= (1 << 0) | (1 << 2);
+
+	// LED ON
+	   uint32_t *pGPIOA_MODER = (uint32_t *)0x40020000;
+	   *pGPIOA_MODER &= ~(3 << 10);
+	   *pGPIOA_MODER |= (1 << 10);
+
+	   uint32_t *pGPIOA_ODR = (uint32_t *)0x40020014;
+	   *pGPIOA_ODR |= (0 << 5);
+	//
+	uint32_t *pGPIOC_IDR = (uint32_t *)0x40020810;
+
+	while(1){
+		if(!(*pGPIOC_IDR & (1 << 13)))
+		{
+			*pGPIOA_ODR |= (1 << 5);
+		}
+		else *pGPIOA_ODR &= ~(1 << 5);
+
+	}
 }
