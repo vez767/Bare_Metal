@@ -18,7 +18,12 @@
 
 #include <stdint.h>
 
+#define STK_CSR ((uint32_t *)0xE000E010) //SysTick control and status register
+#define STK_RVR ((uint32_t *)0xE000E014) //SysTick reload value register
+#define STK_CVR ((uint32_t *)0xE000E018) //SysTick current value register
+
 uint32_t *pGPIOA_ODR = (uint32_t *)0x40020014;
+
 
 int mode_state(int m){
 
