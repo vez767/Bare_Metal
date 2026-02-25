@@ -24,6 +24,23 @@
 
 uint32_t *pGPIOA_ODR = (uint32_t *)0x40020014;
 
+// delay-count function
+void delay_ms(uint32_t ms){
+
+	for(uint32_t i = 0; i < ms; i++){
+		*STK_CVR = 0;
+		*STK_RVR = (16000 - 1);
+
+		*STK_CSR |= (1 << 0) | (1 << 2);
+
+		while(!(*STK_CSR & (1 << 16))){
+
+		}
+	}
+
+	*STK_CSR = 0; // for battery optimisation
+
+}
 
 void mode_state(uint8_t m){
 
