@@ -150,7 +150,7 @@ int main(void)
 
 		 mode = (mode + 1) % 4;
 
-		for(volatile uint32_t i = 0; i < 40000; i++);
+		delay_ms(50);
 	}
 
 	mode_state(mode);
