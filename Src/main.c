@@ -25,7 +25,7 @@
 uint32_t *pGPIOA_ODR = (uint32_t *)0x40020014;
 
 
-int mode_state(int m){
+void mode_state(uint8_t m){
 
 	if(m == 0){
 		*pGPIOA_ODR &= ~(1 << 5);
