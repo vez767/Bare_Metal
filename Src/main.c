@@ -55,12 +55,12 @@ void mode_state(uint8_t m){
 	else if(m == 2){
 
 		*pGPIOA_ODR ^= (1 << 5);
-		for(volatile uint32_t i = 0; i < 200000; i++);
+		delay_ms(200);
 	}
 	else if(m == 3){
 
 			*pGPIOA_ODR ^= (1 << 5);
-			for(volatile uint32_t i = 0; i < 100000; i++);
+			delay_ms(100);
 		}
 }
 
