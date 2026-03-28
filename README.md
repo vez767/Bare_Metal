@@ -1,5 +1,9 @@
 # STM32F4 Bare-Metal: Precision Polling & SysTick
 
+https://github.com/user-attachments/assets/e680de91-cc68-48c6-9034-9b83012c3f8b
+
+![WhatsApp Image 2026-03-28 at 18 40 16](https://github.com/user-attachments/assets/349f4d87-721d-486d-8676-b5a644ff334e)
+
 ## Overview
 This repository documents the foundational milestone of translating the STM32F401RE Reference Manual into functional bare-metal C code. It demonstrates the ability to power silicon registers and control peripheral hardware without relying on external libraries (HAL).
 
