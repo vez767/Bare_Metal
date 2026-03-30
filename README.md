@@ -1,9 +1,5 @@
 # STM32F4 Bare-Metal: Precision Polling & SysTick
 
-https://github.com/user-attachments/assets/e680de91-cc68-48c6-9034-9b83012c3f8b
-
-![WhatsApp Image 2026-03-28 at 18 40 16](https://github.com/user-attachments/assets/349f4d87-721d-486d-8676-b5a644ff334e)
-
 ## Overview
 This repository documents the foundational milestone of translating the STM32F401RE Reference Manual into functional bare-metal C code. It demonstrates the ability to power silicon registers and control peripheral hardware without relying on external libraries (HAL).
 
@@ -19,6 +15,26 @@ This repository documents the foundational milestone of translating the STM32F40
 * **Peripheral Clocking (RCC):** Powered silicon logic.
 * **Core Peripherals:** Configured the 24-bit System Tick (SysTick) Timer for precise millisecond generation.
 * **GPIO Configuration:** Configured MODER (Mode Register) for Output (LED) and Input (Push Button)
+
+## Visual Verification: Hardware-in-the-Loop (HIL)
+To confirm the successful mapping of the Reference Manual to the physical NUCLEO-F401RE hardware, the following states were verified:
+
+State 1: GPIO Output Initialization (Static High)
+
+Observation: Successful bit-set on GPIOA_ODR5. The User LED (PA5) remains consistently powered.
+
+![HIL Verification-photo](https://github.com/user-attachments/assets/a75933ea-444c-45a6-957e-6b8d4a385ee6)
+
+
+State 2: Timebase Generation (Precise Blink)
+
+Observation: The SysTick timer successfully generates a 1Hz toggle. The LED oscillates between logic 1 and 0 at 500ms intervals.
+
+
+
+https://github.com/user-attachments/assets/eeb45e72-734d-4bce-9d67-537c669bcbd0
+
+
 
 ## Known Limitations & Technical Debt (To be fixed in v2.0)
 1. **CPU Paralysis:** The SysTick `delay_ms()` function is a blocking loop. The CPU cannot process other sensor data while waiting.
